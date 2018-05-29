@@ -1,11 +1,10 @@
 package com.walmart.ticketsystem.utils;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.UUID;
 
 public class ConfirmationCodeGenerator {
-	private static AtomicInteger idCounter = new AtomicInteger(1);
 
-    public synchronized static String generateId() {
-        return String.valueOf(idCounter.getAndIncrement()); 
-    }
+	public synchronized static String generateId() {
+		return String.valueOf(UUID.randomUUID());
+	}
 }

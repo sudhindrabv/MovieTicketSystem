@@ -3,28 +3,19 @@ package com.walmart.ticketsystem.entity;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.walmart.ticketsystem.utils.HoldIdGenerator;
+
 public class SeatHold {
 	private int seatHoldId;
 	private String customerEmail;
 	private List<Seat> seatsHold;
 	private boolean isTimedOut;
-	private static final AtomicInteger counter = new AtomicInteger(1);
 
 	public SeatHold(String customerEmail) {
 		super();
-		this.seatHoldId = generateHoldId();
+		this.seatHoldId = HoldIdGenerator.generateHoldId();
 		this.customerEmail = customerEmail;
 		this.setTimedOut(false);
-	}
-
-	public synchronized int generateHoldId() {
-		int holdId = nextValue();
-		System.out.println("Hold ID =" + holdId);
-		return holdId;
-	}
-
-	public static int nextValue() {
-		return counter.getAndIncrement();
 	}
 
 	public int getSeatHoldId() {
