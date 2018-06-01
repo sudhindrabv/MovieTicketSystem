@@ -1,5 +1,10 @@
 package com.walmart.ticketsystem.entity;
 
+/**
+ * Pojo class used to store Seat related information 
+ * @author sudhi
+ *
+ */
 public class Seat {
 
 	private int seatNumber;

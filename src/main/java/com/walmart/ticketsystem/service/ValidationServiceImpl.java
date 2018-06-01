@@ -2,12 +2,20 @@ package com.walmart.ticketsystem.service;
 
 import java.util.regex.Pattern;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.util.StringUtils;
 
 import com.walmart.ticketsystem.exception.EmailValidationException;
 
+/**
+ * This class added to implement all User Validations
+ * @author Sudhindra
+ *
+ */
 public class ValidationServiceImpl implements ValidationService {
 	private static ValidationService validationService;
+	private static final Logger LOGGER = LogManager.getLogger(ValidationServiceImpl.class);
 	
 	// static method to create instance of Singleton ValidationService class
 	public static ValidationService getValidationServiceInstance() {
@@ -20,7 +28,7 @@ public class ValidationServiceImpl implements ValidationService {
 		}
 		return validationService;
 	}
-	
+
 	@Override
 	public boolean validateCustomerEmaildId(String customerEmail) throws EmailValidationException {
 		Pattern EMAIL_PATTERN = Pattern.compile(
@@ -35,6 +43,7 @@ public class ValidationServiceImpl implements ValidationService {
 			result = true;
 		}
 		if (!result) {
+			LOGGER.error(msg);
 			throw new EmailValidationException(msg);
 		}
 		return true;

@@ -1,5 +1,10 @@
 package com.walmart.ticketsystem.exception;
 
+/**
+ * This class added to handle any custom exceptions
+ * @author Sudhindra
+ *
+ */
 public class EmailValidationException extends RuntimeException {
 
 	private static final long serialVersionUID = -3366956474813503770L;

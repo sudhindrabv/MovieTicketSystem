@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.walmart.ticketsystem.utils.HoldIdGenerator;
 
+/**
+ * Pojo class used to store SeatHold related information
+ * @author sudhi
+ *
+ */
 public class SeatHold {
 	private int seatHoldId;
 	private String customerEmail;

@@ -6,13 +6,19 @@ import java.util.List;
 
 import com.walmart.ticketsystem.constants.Constants;
 
+/**
+ * This class is used to represent the Movie screen Object & store array of
+ * Seat, List of all SeatHold objects
+ * 
+ * @author Sudhindra
+ *
+ */
 public class MovieTheater {
 	private Seat[][] seats;
 	private int[] availableSeatsPerRow;
 	private List<SeatHold> allSeatHold;
-	// private int[] maxConsecutiveSeatsPerRow;
 
-	//****************Singleton Design Pattern*****************************
+	// ****************Singleton Design Pattern*****************************
 	// static variable moviewTheaterInstance of type MovieTheater
 	private static MovieTheater moviewTheaterInstance = null;
 
@@ -27,6 +33,7 @@ public class MovieTheater {
 		}
 		return moviewTheaterInstance;
 	}
+	// *******************************************************************
 
 	public MovieTheater() {
 		super();
@@ -72,7 +79,7 @@ public class MovieTheater {
 	}
 
 	public List<SeatHold> getAllSeatHold() {
-		return (allSeatHold==null)?new LinkedList<SeatHold>() : allSeatHold;
+		return (allSeatHold == null) ? new LinkedList<SeatHold>() : allSeatHold;
 	}
 
 	public void addToSeatHoldList(SeatHold seatHold) {
@@ -81,20 +88,33 @@ public class MovieTheater {
 		this.allSeatHold = seatHoldList;
 	}
 
-	public SeatHold findSeatHoldById(int seatHoldId) {
-		List<SeatHold> seatHoldList = getAllSeatHold();
-		for (SeatHold seatHold : seatHoldList) {
-			if (seatHold.getSeatHoldId() == seatHoldId) {
-				return seatHold;
-			}
-		}
-		return null;
-	}
-
 	@Override
 	public String toString() {
 		return "MovieTheatre [seats=" + Arrays.toString(seats) + ", availableSeatsPerRow="
 				+ Arrays.toString(availableSeatsPerRow) + "]";
 	}
 
+	public void prettyPrintMovieTicket() {
+		for (int j = 0; j < Constants.MAX_SEATS_PER_ROW; j++) {
+			System.out.print("- ");
+		}
+		System.out.println();
+		for (int i = 0; i < Constants.MAX_ROWS; i++) {
+				
+			for (int j = 0; j < Constants.MAX_SEATS_PER_ROW; j++) {
+				System.out.print(getSortStatus(getSeats()[i][j])+" ");
+			}
+			System.out.println("");
+		}
+	}
+
+	private String getSortStatus(Seat seat) {
+		String shortStatus = "A";
+		if(seat.getSeatStatus().equals(seat.getSeatStatus().HOLD)) {
+			shortStatus = "H";
+		}else if(seat.getSeatStatus().equals(seat.getSeatStatus().RESERVED)) {
+			shortStatus = "R";
+		}
+		return shortStatus;
+	}
 }

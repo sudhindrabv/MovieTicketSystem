@@ -2,6 +2,11 @@ package com.walmart.ticketsystem.utils;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * This class added to handle functionalities related to HoldIdGenerator
+ * @author Sudhindra
+ *
+ */
 public class HoldIdGenerator {
 	private static final AtomicInteger counter = new AtomicInteger(1);
 
