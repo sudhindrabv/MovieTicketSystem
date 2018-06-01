@@ -1,7 +1,6 @@
 package com.walmart.ticketsystem.entity;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import com.walmart.ticketsystem.utils.HoldIdGenerator;
 

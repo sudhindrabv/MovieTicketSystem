@@ -19,9 +19,9 @@ public class TicketSystemApplication {
 		TicketService service = new TicketServiceImpl();
 		service.numSeatsAvailable();
 		service.findAndHoldSeats(3, "1");
-		service.findAndHoldSeats(4, "2");
-		service.findAndHoldSeats(3, "3");
-		service.findAndHoldSeats(18, "4");
+		service.findAndHoldSeats(4, "pqr@gmail.com");
+		service.findAndHoldSeats(3, "xyz@gmail.com");
+		service.findAndHoldSeats(18, "123@gmail.com");
 		service.reserveSeats(1, "1");
 		service.numSeatsAvailable();
 		int uid = 2;
@@ -29,7 +29,7 @@ public class TicketSystemApplication {
 			System.out.println("\nSleeping for 2 mins");
 			Thread.sleep(2*60*1000);
 			System.out.println("Thread Awake and continue reserving seats");
-			service.reserveSeats(uid, "2");
+			service.reserveSeats(uid, "pqr@gmail.com");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
