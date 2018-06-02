@@ -14,7 +14,7 @@ Implementing a simple ticket service that facilitates the discovery, temporary h
   8.  For full Problem statement refer **Ticket Service Coding Challenge.pdf**
 
 # Class Diagram
-![Walmart] (https://github.com/sudhindramanohar/WalmartTicketSystem/blob/master/Class%20Diagram.jpg)
+![Class Diagram](https://github.com/sudhindramanohar/WalmartTicketSystem/blob/master/Class%20Diagram.jpg)
 
 # Installations Details
   ##  Basic Setup
