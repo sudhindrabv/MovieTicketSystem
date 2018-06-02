@@ -55,7 +55,18 @@ public class TicketServiceTest {
         int seatsRequired = 100;
         Constants.MAX_ROWS = 3;
 		Constants.MAX_SEATS_PER_ROW = 6;
-        assertEquals(null,ticketService.findAndHoldSeats(seatsRequired,"test@email.com"));
+        assertEquals(null,ticketService.findAndHoldSeats(seatsRequired,"test@gmail.com"));
     }
 	
+	@Test(expected = NullPointerException.class)
+	public void testReserveSeatsWithNonExistingSeatHold() {
+        final SeatHold seatHold = ticketService.findAndHoldSeats(1, "tets@gmail.com");
+        assertEquals(null,ticketService.reserveSeats(2, seatHold.getCustomerEmail()));
+    }
+	
+	@Test(expected = NullPointerException.class)
+	public void testReserveSeatsWithExistingSeatHold() {
+        final SeatHold seatHold = ticketService.findAndHoldSeats(1, "tets@gmail.com");
+        assertEquals(null,ticketService.reserveSeats(1, seatHold.getCustomerEmail()));
+    }
 }
