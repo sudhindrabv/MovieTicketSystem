@@ -13,9 +13,13 @@ Implementing a simple ticket service that facilitates the discovery, temporary h
   7.  Implementation mechanisms such as disk-based storage, a REST API, and a front-end GUI are not required
   8.  For full Problem statement refer **Ticket Service Coding Challenge.pdf**
 
-# Class Diagram
-![Class Diagram](https://github.com/sudhindramanohar/WalmartTicketSystem/blob/master/Class%20Diagram.jpg)
-
+# Assumptions
+  * Customers can book tickets based on the availablity of the seats.
+  * Customers are given seats from top row from left to right considering it to be the best available seats and least best seats are the bottom row righmost seat.
+  * Best available seats also means that the seats are contiguous and if the seats are not available contiguous then the I am     considering user will not wish to choose the seats(Although a small change in TicketServiceImpl is enough to handle this)
+  * Seats are held only for a small duration of time(1 minute) after which seats availability will change from Hold to Available and customer has to send a request again to hold the seats.(Hold Expiry Duration can be customised in Constants file)
+  * After the duration is expired no notification will be sent to customer.
+  
 # Installations Details
   ##  Basic Setup
   Assuming Java and Git are already installed on device
@@ -29,4 +33,8 @@ Implementing a simple ticket service that facilitates the discovery, temporary h
   * java -jar target\WalmartTicketSystem-0.0.1-SNAPSHOT.jar com.walmart.ticketsystem.TicketSystemApplication //Main Program will start. 
   * Then follow the command prompt.
   
+
+# Class Diagram
+![Class Diagram](https://github.com/sudhindramanohar/WalmartTicketSystem/blob/master/Class%20Diagram.jpg)
+
  
