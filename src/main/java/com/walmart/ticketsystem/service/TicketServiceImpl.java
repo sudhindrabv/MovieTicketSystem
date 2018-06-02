@@ -138,6 +138,6 @@ public class TicketServiceImpl implements TicketService {
 		}else {
 			LOGGER.error("Incorrect Hold ID or customer email id! Please enter correct info");
 		}
-		return null;
+		return "";
 	}
 }	
