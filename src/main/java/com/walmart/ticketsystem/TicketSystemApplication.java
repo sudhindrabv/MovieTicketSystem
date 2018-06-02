@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.walmart.ticketsystem.constants.Constants;
 import com.walmart.ticketsystem.entity.SeatHold;
 import com.walmart.ticketsystem.exception.EmailValidationException;
+import com.walmart.ticketsystem.service.MovieTheaterService;
 import com.walmart.ticketsystem.service.TicketService;
 import com.walmart.ticketsystem.service.TicketServiceImpl;
 import com.walmart.ticketsystem.service.ValidationService;
@@ -32,9 +33,9 @@ public class TicketSystemApplication {
 		Scanner sc = new Scanner(System.in);
 		System.out.println(" TicketService System");
 		System.out.println("*********************");
-		boolean loop = true;
-		String options = "\nOptions:\n1. start/Clear \t2. Available Seats \t3. Request for Hold \t4. Reserve/commit \t5. Exit.";
-		while (loop) {
+		boolean loopEnd = true;
+		String options = "\nOptions:\n1. start/Clear \t2. Available Seats \t3. Request for Hold \t4. Reserve/commit \t5. Pretty Print \t6. Exit.";
+		while (loopEnd) {
 			System.out.println(options);
 			String str = sc.next();
 			boolean isvalidInput = Utility.isValidNumber(str);
@@ -169,7 +170,11 @@ public class TicketSystemApplication {
 				break;
 
 			case 5:
-				loop = false;
+				System.out.println("Pretty print seats");
+				MovieTheaterService.prettyPrintMovieTicket();
+				break;
+			case 6:
+				loopEnd = false;
 				System.out.println("\nExiting the Ticket System!");
 				scheduledExecuter.shutdownNow();
 				break;

@@ -52,7 +52,6 @@ public class TicketServiceImpl implements TicketService {
 
 	private synchronized SeatHold getBestAvailableSeats(int numSeats, String customerEmail) {
 		LOGGER.debug("Number of Seats requested by customer " + customerEmail + " is " + numSeats);
-		SeatHold seatHold = new SeatHold(customerEmail);
 		List<Seat> bestAvailableSeats = new LinkedList<Seat>();
 		int[] availableSeatsPerRow = MovieTheaterService.getAvailableSeatsPerRow();
 		if (numSeatsAvailable() > numSeats) { // if seats are available irrespective of row
@@ -78,10 +77,11 @@ public class TicketServiceImpl implements TicketService {
 		} else {
 			LOGGER.error("Seats are not available to satisfy required seats");
 		}
-
-		scheduleSeatHold(seatHold, bestAvailableSeats, customerEmail);
-		MovieTheaterService.prettyPrintMovieTicket();
-		return seatHold;
+		if(!bestAvailableSeats.isEmpty()) {
+			scheduleSeatHold(bestAvailableSeats, customerEmail);
+			MovieTheaterService.prettyPrintMovieTicket();
+		}
+		return null;
 	}
 
 	private boolean checkConsecutiveSeatsAreAvailable(int numSeats, List<Seat> bestAvailableSeats, 
@@ -105,7 +105,8 @@ public class TicketServiceImpl implements TicketService {
 		return consecutiveSeatsAvailable;
 	}
 
-	private void scheduleSeatHold(SeatHold seatHold, List<Seat> bestAvailableSeats, String customerEmail) {
+	private void scheduleSeatHold(List<Seat> bestAvailableSeats, String customerEmail) {
+		SeatHold seatHold = new SeatHold(customerEmail);
 		TicketHoldRunnableTask task = new TicketHoldRunnableTask(bestAvailableSeats, seatHold,customerEmail);
 		scheduledExecuter.schedule(task, Constants.SEAT_HOLD_DURATION_EXPIRY, TimeUnit.MINUTES);
 
