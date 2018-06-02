@@ -3,9 +3,13 @@ package com.walmart.ticketsystem;
 import java.util.List;
 import java.util.concurrent.Executors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.walmart.ticketsystem.entity.Seat;
 import com.walmart.ticketsystem.entity.SeatHold;
 import com.walmart.ticketsystem.service.MovieTheaterService;
+import com.walmart.ticketsystem.service.TicketServiceImpl;
 
 /**
  * This class is a Asynchronous runnable task which runs when seats are put on
@@ -16,6 +20,7 @@ import com.walmart.ticketsystem.service.MovieTheaterService;
  */
 public class TicketHoldRunnableTask implements Runnable {
 
+	private static final Logger LOGGER = LogManager.getLogger(TicketHoldRunnableTask.class);
 	private List<Seat> holdSeats;
 	private SeatHold seatHold;
 	private String customerEmail;
@@ -51,11 +56,11 @@ public class TicketHoldRunnableTask implements Runnable {
 		getSeatHold().setTimedOut(true);
 		List<Seat> seats = getHoldSeats();
 		if(seatHold != null) {
-			System.out.println("Running Ticket Hold thread " + Thread.currentThread().getId());
-			System.out.println("Booking hold expired!");
+			LOGGER.debug("Running Ticket Hold thread " + Thread.currentThread().getId());
+			LOGGER.debug("Booking hold expired!");
 			for (Seat seat : seats) {
 				if (seat.getSeatStatus().equals(Seat.SEAT_STATUS.HOLD)) {
-					System.out.println("Seat " + seat.getSeatNumber() + " is made available");
+					LOGGER.debug("Seat Number "+seat.getSeatNumber()+" in row " + seat.getRowNumber() + " is made available");
 					seat.setSeatStatus(Seat.SEAT_STATUS.AVAILABLE);
 				}
 			}

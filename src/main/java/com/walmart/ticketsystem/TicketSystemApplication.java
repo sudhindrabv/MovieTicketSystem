@@ -28,7 +28,7 @@ public class TicketSystemApplication {
 		int holdId2 = 2;
 		try {
 			System.out.println("\nSleeping for 1 mins");
-			Thread.sleep(1*60*1000);
+			Thread.sleep(1*30*1000);
 			System.out.println("Thread Awake and continue reserving seats");
 			service.reserveSeats(holdId1, "pqr@gmail.com");
 			service.reserveSeats(holdId2, "xyz@gmail.com");

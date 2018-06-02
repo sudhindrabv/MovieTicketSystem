@@ -127,7 +127,7 @@ public class TicketServiceImpl implements TicketService {
 				}
 
 				String confirmationCode = ConfirmationCodeGenerator.generateId();
-				LOGGER.debug("Tickets booked for customer" + customerEmail + " and confirmation ID is " + confirmationCode);
+				LOGGER.debug("Tickets booked for customer " + customerEmail + " and confirmation ID is " + confirmationCode);
 				MovieTheaterService.prettyPrintMovieTicket();
 				return confirmationCode;
 			} else {
