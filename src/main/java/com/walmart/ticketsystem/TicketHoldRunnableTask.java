@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.walmart.ticketsystem.entity.MovieTheater;
 import com.walmart.ticketsystem.entity.Seat;
 import com.walmart.ticketsystem.entity.SeatHold;
 import com.walmart.ticketsystem.service.MovieTheaterService;
@@ -15,7 +16,7 @@ import com.walmart.ticketsystem.service.TicketServiceImpl;
  * This class is a Asynchronous runnable task which runs when seats are put on
  * hold and counts down when to release the held seats to available
  * 
- * @author sudhi
+ * @author Sudhindra
  *
  */
 public class TicketHoldRunnableTask implements Runnable {
@@ -55,17 +56,19 @@ public class TicketHoldRunnableTask implements Runnable {
 	public void run() {
 		getSeatHold().setTimedOut(true);
 		List<Seat> seats = getHoldSeats();
-		if(seatHold != null) {
+		if (seatHold != null) {
 			LOGGER.debug("Running Ticket Hold thread " + Thread.currentThread().getId());
 			LOGGER.debug("Booking hold expired!");
 			for (Seat seat : seats) {
 				if (seat.getSeatStatus().equals(Seat.SEAT_STATUS.HOLD)) {
-					LOGGER.debug("Seat Number "+seat.getSeatNumber()+" in row " + seat.getRowNumber() + " is made available");
+					LOGGER.debug("Seat Number " + seat.getSeatNumber() + " in row " + seat.getRowNumber()
+							+ " is made available");
 					seat.setSeatStatus(Seat.SEAT_STATUS.AVAILABLE);
+					MovieTheaterService.setAvailableSeatsPerRow(seat.getRowNumber(), 1, true);
 				}
 			}
-			//MovieTheaterService.prettyPrintMovieTicket();
+			// MovieTheaterService.prettyPrintMovieTicket();
 		}
-		
+
 	}
 }

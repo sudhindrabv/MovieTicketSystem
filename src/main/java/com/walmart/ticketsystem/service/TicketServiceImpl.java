@@ -96,7 +96,7 @@ public class TicketServiceImpl implements TicketService {
 			}
 			if (consecutiveSeatsSatisfied == numSeats) {
 				consecutiveSeatsAvailable = true;
-				MovieTheaterService.setAvailableSeatsPerRow(rowNumber, numSeats);
+				MovieTheaterService.setAvailableSeatsPerRow(rowNumber, numSeats,false);
 				LOGGER.debug("Consecutive seats are available");
 				LOGGER.debug("Seats are put on hold status");
 				break;
@@ -107,7 +107,7 @@ public class TicketServiceImpl implements TicketService {
 
 	private void scheduleSeatHold(SeatHold seatHold, List<Seat> bestAvailableSeats, String customerEmail) {
 		TicketHoldRunnableTask task = new TicketHoldRunnableTask(bestAvailableSeats, seatHold,customerEmail);
-		scheduledExecuter.schedule(task, Constants.HOLD_DURATION_EXPIRY, TimeUnit.MINUTES);
+		scheduledExecuter.schedule(task, Constants.SEAT_HOLD_DURATION_EXPIRY, TimeUnit.MINUTES);
 
 		for (Seat seat : bestAvailableSeats) { // change the seat status to hold
 			seat.setSeatStatus(Seat.SEAT_STATUS.HOLD);

@@ -35,8 +35,8 @@ public interface MovieTheaterService {
 		return movieTheater.getSeats();
 	}
 	
-	public static void setAvailableSeatsPerRow(int rowNumber, int numSeats) {
-		movieTheater.setAvailableSeatsPerRow(rowNumber, numSeats);
+	public static void setAvailableSeatsPerRow(int rowNumber, int numSeats, boolean isAddSeatsPerRow) {
+		movieTheater.setAvailableSeatsPerRow(rowNumber, numSeats,isAddSeatsPerRow);
 	}
 	
 	public static void addToSeatHoldList(SeatHold seatHold) {

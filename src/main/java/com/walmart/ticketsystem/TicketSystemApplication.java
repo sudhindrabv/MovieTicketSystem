@@ -3,6 +3,8 @@ package com.walmart.ticketsystem;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import com.walmart.ticketsystem.service.TicketService;
 import com.walmart.ticketsystem.service.TicketServiceImpl;
 
@@ -11,6 +13,7 @@ import com.walmart.ticketsystem.service.TicketServiceImpl;
  * @author Sudhindra
  *
  */
+@SpringBootApplication
 public class TicketSystemApplication {
 
 	private static ScheduledExecutorService scheduledExecuter = Executors.newScheduledThreadPool(10);

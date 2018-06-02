@@ -67,17 +67,21 @@ public class MovieTheater {
 		this.availableSeatsPerRow = availableSeatsPerRow;
 	}
 
-	public void setAvailableSeatsPerRow(int row, int holdedSeats) {
+	public void setAvailableSeatsPerRow(int row, int holdedSeats,boolean isAddSeats) {
 		int[] availableSeatsPerRow = getAvailableSeatsPerRow();
 		for (int rowNumber = availableSeatsPerRow.length - 1; rowNumber >= 0; rowNumber--) {
 			if (rowNumber == row) {
-				availableSeatsPerRow[row] -= holdedSeats;
+				if(isAddSeats) {
+					availableSeatsPerRow[row] += holdedSeats;
+				}else {
+					availableSeatsPerRow[row] -= holdedSeats;
+				}	
 				break;
 			}
 		}
 		setAvailableSeatsPerRow(availableSeatsPerRow);
 	}
-
+	
 	public List<SeatHold> getAllSeatHold() {
 		return (allSeatHold == null) ? new LinkedList<SeatHold>() : allSeatHold;
 	}
@@ -102,13 +106,13 @@ public class MovieTheater {
 		for (int i = 0; i < Constants.MAX_ROWS; i++) {
 				
 			for (int j = 0; j < Constants.MAX_SEATS_PER_ROW; j++) {
-				System.out.print(getSortStatus(getSeats()[i][j])+" ");
+				System.out.print(getShortSeatStatus(getSeats()[i][j])+" ");
 			}
 			System.out.println("");
 		}
 	}
 
-	private String getSortStatus(Seat seat) {
+	private String getShortSeatStatus(Seat seat) {
 		String shortStatus = "A";
 		if(seat.getSeatStatus().equals(seat.getSeatStatus().HOLD)) {
 			shortStatus = "H";
