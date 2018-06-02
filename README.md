@@ -37,4 +37,40 @@ Implementing a simple ticket service that facilitates the discovery, temporary h
 # Class Diagram
 ![Class Diagram](https://github.com/sudhindramanohar/WalmartTicketSystem/blob/master/Class%20Diagram.jpg)
 
- 
+# Design Overview
+I have considered three main entities
+  1.  **MovieTheater**   
+    * This entity is used to store information about all the two dimentional array of Seat object and **a one dimensional array of available seats per row. Because, of this datastructure it reduces the running time complexity to get number of seats available at any instant from O(n*m) to O(n)** where n is number of rows and m is number of columns.
+    * It also holds the information about all the SeatHold object at any given moment.
+      
+  2.  **SeatHold**
+    * This entity a uniquely generated SeatHoldId, customer email, and list of Seat held by the customer and a flag to check whether held seats are expired or not.
+    * This object is is destroyed once the hold duration has lapsed.
+      
+  3.  **Seat**
+    * This object is used to capture the seatNumber, rowNumber and seat status.
+    * Seat Status is an enumerator which can have any value from "AVAILABLE, HOLD, RESERVED".
+    * Initially all the seats are initialzed with AVAILABLE status and is changed to HOLD when customer holds seats and when the held seats are booked it is changed to RESERVATION status and no customers can book the RESERVED seats.
+
+Utility classes:
+  1.  **ConfirmationCodeGenerator**
+    * This class is used to generate UUID when the seats are booked by a customer successfully.
+    * This is a generated uniquely accross all threads.
+  
+  2.  **HoldIdGenerator**
+    * This class is used to generate atomic integer value when seats are held by a customer successfully.
+    * This generated uniquely across all threads.
+
+
+Custom Exception Handler classes:
+  1.  **EmailValidationException**
+    * Currently I have created one class to handle to throw an custom exception when invalid email is provided
+    * This class extends RuntimeExcption.
+    
+Service classes:
+I have added two main service implementation classes.
+  1.  **TicketServiceImpl**
+    * This class provides the implemenattion of all the three API's.
+    * It internally MovieTheater interface(to do all Seat related operation), TicketHoldRunnableTask class(To make seats available once timer expires)
+  2.  **ValidationServiceImpl**
+    * This class provides implementation to varies validations like customer email validation and handling custom exceptions. 
